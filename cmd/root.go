@@ -28,7 +28,7 @@ import (
 
 var  (
 	cfgFile string
-	Config *utils.PipelineCfg
+	Config *utils.VilyaCfg
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -73,7 +73,7 @@ func initConfig() {
 	if err != nil {
 		log.Printf("Error processing config file: %v\n", err)
 	}
-	fmt.Printf("%+v", Config)
+	//fmt.Printf("%+v", Config)
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
