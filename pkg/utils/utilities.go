@@ -58,7 +58,7 @@ func SimpleQuietRunner(cmdtorun []string, workdir string) (string, error){
 	return fmt.Sprintf("%s", string(out)), nil
 }
 
-func (config *PipelineCfg) SetupConfig() error {
+func (config *VilyaCfg) SetupConfig() error {
 	var configfilepath string
 	for _, val := range os.Environ() {
 		if strings.Contains(val, "VILYAROOT=") {
