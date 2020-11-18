@@ -1,0 +1,33 @@
+{
+    "FSLocations": {
+        "MkcaaspRoot": "(optional) if you use mkcaasp",
+        "SkubaRoot": "(optional) if you test github PRs of skuba",
+        "MkcaaspContainerRoot": "(optional) if you run mkcaasp inside a client container", 
+        "ContainValidRoot": "(optional) if you containerized the validator",
+        "VilyaRoot": "/Users/alexeitighineanu/go/src/vilya2.0"
+    },
+    "Concourse": {
+        "Username": "qa",
+        "Password": "concourse instance pwd",
+        "Team": "main",
+        "InstanceUrl": "http://10.84.72.213:8080"
+    },
+    "Docker": {
+        "RegistryUsername": "username",
+        "RegistryPassword": "password",
+        "CaaSP3TestImage": "registry.caasp.suse.net/techno-ci/mkcaaspv3",
+        "CaaSP4TestImage": "shaklotan/validator_v4"
+    },
+    "MaintAPI": {
+    "QATeam": "qam-caasp"
+    },
+    "AWS": {
+        "ID": "",
+        "SECRET": "",
+        "REGION": "eu-central-1"
+    },
+    "OBS": {
+        "User": "bugzilla username",
+        "Pass": "bugzilla pwd"
+    }
+}
