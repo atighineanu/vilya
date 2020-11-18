@@ -58,8 +58,7 @@ func SimpleQuietRunner(cmdtorun []string, workdir string) (string, error){
 	return fmt.Sprintf("%s", string(out)), nil
 }
 
-func SetupConfig() (PipelineCfg, error) {
-	var config PipelineCfg
+func (config *PipelineCfg) SetupConfig() error {
 	var configfilepath string
 	for _, val := range os.Environ() {
 		if strings.Contains(val, "VILYAROOT=") {
@@ -72,11 +71,11 @@ func SetupConfig() (PipelineCfg, error) {
 	}
 	workdir, err := os.Getwd()
 	if err != nil {
-		return config, fmt.Errorf("Error getting working dir: %v", err)
+		return fmt.Errorf("Error getting working dir: %v", err)
 	}
 	out1, err := exec.Command("whoami").CombinedOutput()
 	if err != nil {
-		return config, fmt.Errorf("Error running whoami %v", err)
+		return fmt.Errorf("Error running whoami %v", err)
 	}
 	whoami := strings.Replace(fmt.Sprintf("%s", string(out1)), "\n", "", 100)
 	homefoldslice := []string{workdir, filepath.Join("/home", whoami), filepath.Join("/home", whoami, "vilya"), filepath.Join("/home", whoami, "go/src/vilya"),
@@ -85,7 +84,7 @@ func SetupConfig() (PipelineCfg, error) {
 		cmdargs := []string{"ls", "-alh", value}
 		out2, err := exec.Command(cmdargs[0], cmdargs[1:]...).CombinedOutput()
 		if err != nil {
-			return config, fmt.Errorf("Error executing ls... %v", err)
+			return fmt.Errorf("Error executing ls... %v", err)
 		}
 		if strings.Contains(fmt.Sprintf("%s", string(out2)), "vilyaCfg.json") {
 			configfilepath = filepath.Join(value, "vilyaCfg.json")
@@ -93,7 +92,7 @@ func SetupConfig() (PipelineCfg, error) {
 		}
 	}
 	if configfilepath == "" {
-		return config, fmt.Errorf("ERROR!...\nPlease indicate the config file path")
+		return fmt.Errorf("ERROR!...\nPlease indicate the config file path")
 	} else {
 		log.Printf("configfilepath: %s\n", configfilepath)
 	}
@@ -101,11 +100,11 @@ func SetupConfig() (PipelineCfg, error) {
 	defer f.Close()
 	if err != nil {
 		log.Printf("Error: %s\n", err)
-		return config, err
+		return err
 	}
 	if err := json.NewDecoder(f).Decode(&config); err != nil {
 		log.Printf("Error: %s\n", err)
-		return config, err
+		return  err
 	}
-	return config, nil
+	return nil
 }
