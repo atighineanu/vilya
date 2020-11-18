@@ -1,6 +1,6 @@
 package utils
 
-type PipelineCfg struct {
+type VilyaCfg struct {
 	Concourse   concourse   `json:"Concourse"`
 	Docker      docker      `json:"Docker"`
 	FSLocations FSLocations `json:"FSLocations"`
