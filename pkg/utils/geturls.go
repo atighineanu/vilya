@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (config *PipelineCfg) CheckForUpd() ([]Updates, error) {
+func CheckForUpd(config PipelineCfg) ([]Updates, error) {
 	var a string
 	var updlist []Updates
 	var update Updates
