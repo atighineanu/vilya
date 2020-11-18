@@ -28,7 +28,7 @@ import (
 
 var  (
 	cfgFile string
-	Config utils.PipelineCfg
+	Config *utils.PipelineCfg
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -69,7 +69,7 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	Config, err := utils.SetupConfig()
+	err := Config.SetupConfig()
 	if err != nil {
 		log.Printf("Error processing config file: %v\n", err)
 	}
