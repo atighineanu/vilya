@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func (config *VilyaCfg) RunDaemon(timemap map[string]int) error {
+func (config *VilyaCfg) RunDaemon(duration time.Duration) error {
 	return nil
 }
 
@@ -74,3 +74,5 @@ func convTimez(n time.Duration, r rune) time.Duration {
 	}
 	return res	
 }
+
+
