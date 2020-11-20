@@ -5,8 +5,8 @@ import (
 	"strings"
 	"unicode"
 	"strconv"
-	"math"
-	"unicode/utf8"
+	//"math"
+	//"unicode/utf8"
 	"time"
 )
 
@@ -19,34 +19,26 @@ func (config *VilyaCfg) RunAndNotify(duration time.Duration, url string, message
 }
 
 func (config *VilyaCfg) ParsePeriod(period string) (time.Duration, error) {
-	temp := strings.Split(period, "")
-	var number, power int
-	for i := len(temp) -1; i >= 0; i-- {
-		if unicode.IsDigit([]rune(temp[i])[0]) {
-			bit, err := strconv.Atoi(temp[i]) 
-			if err != nil {
-				return 0, fmt.Errorf("Couldn't convert string to int.")
-			}
-			number += int(float64(bit) * math.Pow(10, float64(power)) )
-			power++
-		} else {
-			if i != len(temp) - 1 {
-				return 0, fmt.Errorf("Bad format for input --period")
-			} 
-		}
-		if i == 0 {
-			switch temp[len(temp)-1] {
-			case "s":
-				return time.Duration(number) * time.Second, nil
-			case "m":
-				return time.Duration(number) * time.Minute, nil
-			case "h":
-				return time.Duration(number) * time.Hour, nil
-			return 0, fmt.Errorf("Bad formatting. Cannot recognize time unit.")
-			}
-		}
+	number, err := strconv.Atoi(strings.TrimRightFunc(period, func(r rune) bool {
+		return unicode.IsLetter(r)
+	}))
+	if err != nil {
+		return 0, fmt.Errorf("Couldn't convert string to int.")
 	}
-	return 0, nil
+	if unicode.IsLetter([]rune(period[len(period)-1:])[0]) {
+		switch period[len(period)-1:] {
+		case "s":
+			return time.Duration(number) * time.Second, nil
+		case "m":
+			return time.Duration(number) * time.Minute, nil
+		case "h":
+			return time.Duration(number) * time.Hour, nil
+		default:
+			return 0, fmt.Errorf("Bad formatting. Cannot recognize time unit.")
+		}
+	} else {
+		return 0, fmt.Errorf("Bad formatting. Cannot recognize time unit.")
+	}
 }
 
 
