@@ -2,17 +2,20 @@ package utils
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"unicode"
-	"strconv"
+
 	//"math"
 	//"unicode/utf8"
 	"time"
+
+	"github.com/atighineanu/shoutrrr"
 )
 
 func (config *VilyaCfg) RunAndNotify(duration time.Duration, url string, message string) error {
 	for {
-		fmt.Println("tzatzatza")
+		shoutrrr.Send(url, message)
 		time.Sleep(duration)
 	}
 	return nil
@@ -40,5 +43,3 @@ func (config *VilyaCfg) ParsePeriod(period string) (time.Duration, error) {
 		return 0, fmt.Errorf("Bad formatting. Cannot recognize time unit.")
 	}
 }
-
-
