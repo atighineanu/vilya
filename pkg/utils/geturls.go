@@ -13,7 +13,7 @@ func (config *VilyaCfg) CheckForUpd() ([]Updates, error) {
 	client := obs.NewClient(config.OBS.User, config.OBS.Pass)
 	rrs, err := client.GetReleaseRequests(config.MaintAPI.QATeam, "new,review")
 	if err != nil {
-		fmt.Println(err)
+		return nil, fmt.Errorf("Error while getting response from obs: %v\n", err)
 	}
 	for _, value := range rrs {
 		a = a + "===\n"
